@@ -3,6 +3,9 @@ module.exports = {
   host: 'localhost',
   username: 'root',
   password: '',
-  database: 'sequelize',
- 
+  database: 'ifome',
+  define:{
+    timestamps: true, // createAt e updateAt
+    underscored: true, // separado por underline
+  }
 };
