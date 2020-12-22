@@ -5,7 +5,7 @@ module.exports = {
   password: '',
   database: 'ifome',
   define:{
-    timestamps: true, // createAt e updateAt
+    timestamps: false, // createAt e updateAt
     underscored: true, // separado por underline
   }
 };
