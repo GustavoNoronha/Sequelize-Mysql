@@ -16,7 +16,7 @@ module.exports = {
            
         } = req.body;
 
-        const perfil = await promocoes.create({
+        const promocoes = await Promocoes.create({
             nome,
             url,
             categoria,
@@ -24,6 +24,42 @@ module.exports = {
            
         });
 
-        return res.json(perfil)
-    }
+        return res.json(promocoes)
+    },
+
+    async findById(req,res){
+        const promocoes = await Promocoes.findAll({
+            where: {
+                id: req.params.id
+            }
+        });
+        return res.json(promocoes)
+    },
+    
+    async delete(req,res){
+        const promocoes = await Promocoes.destroy({
+            where: {
+              id: req.body.id
+            }
+        });
+        return res.json(promocoes)
+    },
+
+      
+    async update(req,res){
+        const promocoes = await Promocoes.update(
+            {   
+                nome: req.body.nome,
+                url: req.body.url,
+                categoria: req.body.categoria,
+                restaurante: req.body.restaurante,
+            }, {
+                where:{
+                    id: req.body.id
+                }
+            }
+        )
+            
+        return res.json(promocoes)
+    },
 }

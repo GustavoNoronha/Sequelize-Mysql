@@ -21,5 +21,39 @@ module.exports = {
         });
 
         return res.json(perfil)
-    }
+    },
+
+    async findById(req,res){
+        const perfil = await Perfil.findAll({
+            where: {
+                id: req.params.id
+            }
+        });
+        return res.json(perfil)
+    },
+    
+    async delete(req,res){
+        const perfil = await Perfil.destroy({
+            where: {
+              id: req.body.id
+            }
+        });
+        return res.json(perfil)
+    },
+
+      
+    async update(req,res){
+        const perfil = await Perfil.update(
+            {   
+                nome: req.body.nome,
+                url: req.body.url,
+            }, {
+                where:{
+                    id: req.body.id
+                }
+            }
+        )
+            
+        return res.json(perfil)
+    },
 }

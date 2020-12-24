@@ -23,5 +23,41 @@ module.exports = {
         });
 
         return res.json(endereco)
-    }
+    },
+
+    async findById(req,res){
+        const endereco = await Endereco.findAll({
+            where: {
+                id: req.params.id
+            }
+        });
+        return res.json(endereco)
+    },
+    
+    async delete(req,res){
+        const endereco = await Endereco.destroy({
+            where: {
+              id: req.body.id
+            }
+        });
+        return res.json(endereco)
+    },
+
+      
+    async update(req,res){
+        const endereco = await Endereco.update(
+            {   
+                bairro: req.body.bairro,
+                rua: req.body.rua,
+                numero: req.body.numero,
+                bairro: req.body.bairro
+            }, {
+                where:{
+                    id: req.body.id
+                }
+            }
+        )
+            
+        return res.json(endereco)
+    },
 }
