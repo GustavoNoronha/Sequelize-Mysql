@@ -1,6 +1,16 @@
 const Cartoes = require("../models/Cartoes")
+const pagarme = require('pagarme')
 
 module.exports = {
+
+    async cartoesNome(req,res){
+        const cartoes = await Cartoes.findAll({
+            where:{
+                card_holder_name: req.body.card_holder_name
+            }
+        });
+        return res.json(cartoes)
+    },
     
     async index(req,res){
         const cartoes = await Cartoes.findAll();
@@ -25,6 +35,27 @@ module.exports = {
         return res.json(cartoes)
     },
 
+    async storePagarme(req,res){
+        const { 
+            card_holder_name,
+            card_number, 
+            card_expiration_date,
+            card_cvv
+        } = req.body;
+
+        const cartoes = await Cartoes.create(    
+        pagarme.client.connect({ api_key: 'ak_test_noE3nDHfP4BpO5uEGJHjJUI9YfvJDj' })
+        .then(client => client.cards.create({
+            card_holder_name,
+            card_number, 
+            card_expiration_date,
+            card_cvv
+        }))
+        .then(card => console.log(card.id))
+    );
+
+        return res.json(cartoes)
+    },
     
     async findById(req,res){
         const cartoes = await Cartoes.findAll({

@@ -1,10 +1,37 @@
 const Administrador = require("../models/Administrador")
+const { Op } = require("sequelize");
 
 module.exports = {
     
     async index(req,res){
         const adm = await Administrador.findAll();
         return res.json(adm)
+    },
+    
+    async login(req,res){
+        const { 
+            nome,
+            senha
+        } = req.body;
+
+        const adm = await Administrador.findAll({
+            where:{
+                [Op.and]: [
+                    { nome: nome },
+                    { senha: senha },
+                ]
+            }
+        });
+        if (!adm) {
+            res.send("Erro")
+        }
+        if (adm.length > 0) {
+            res.send(adm)
+
+        } else {
+            res.send({ message: "Combinação nao encontrada!" })
+        }
+   
     },
          
     async store(req,res){

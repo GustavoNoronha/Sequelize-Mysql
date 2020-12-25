@@ -1,10 +1,51 @@
 const Restaurante = require("../models/Restaurantes")
+const { Op } = require("sequelize");
 
 module.exports = {
     
     async index(req,res){
         const restaurantes = await Restaurante.findAll();
         return res.json(restaurantes)
+    },
+
+    async findByNome(req,res){
+        const restaurantes = await Restaurante.findAll({
+            where: {
+                nome: req.body.nome
+            }
+        });
+        return res.json(restaurantes)
+    },
+
+    async count(req,res){
+        const restaurantes = await Restaurante.count();
+        return res.json(restaurantes)
+    },
+
+    async login(req,res){
+        const { 
+            nome,
+            senha
+        } = req.body;
+
+        const restaurantes = await Restaurante.findAll({
+            where:{
+                [Op.and]: [
+                    { nome: nome },
+                    { senha: senha },
+                ]
+            }
+        });
+        if (!restaurantes) {
+            res.send("Erro")
+        }
+        if (restaurantes.length > 0) {
+            res.send(restaurantes)
+
+        } else {
+            res.send({ message: "Combinação nao encontrada!" })
+        }
+   
     },
     
     async store(req,res){

@@ -3,7 +3,11 @@ const Endereco = require("../models/Endereco")
 module.exports = {
     
     async index(req,res){
-        const endereco = await Endereco.findAll();
+        const endereco = await Endereco.findAll({
+            where: {
+                usuario: req.body.usuario
+            }
+        });
         return res.json(endereco)
     },
     

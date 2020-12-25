@@ -6,6 +6,15 @@ module.exports = {
         const ofertas = await Ofertas.findAll();
         return res.json(ofertas)
     },
+
+    async count(req,res){
+        const ofertas = await Ofertas.count({
+            where:{
+               restaurante: req.body.restaurante,
+            }
+        });
+        return res.json(ofertas)
+    },
     
     async store(req,res){
         const { 

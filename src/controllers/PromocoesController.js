@@ -6,6 +6,19 @@ module.exports = {
         const promocoes = await Promocoes.findAll();
         return res.json(promocoes)
     },
+    async findByNome(req,res){
+        const promocoes = await Promocoes.findAll({
+            where: {
+                restaurante: req.body.restaurante
+            }
+        });
+        return res.json(promocoes)
+    },
+
+    async count(req,res){
+        const promocoes = await Promocoes.count();
+        return res.json(promocoes)
+    },
     
     async store(req,res){
         const { 
