@@ -17,10 +17,26 @@ const routes = express.Router();
 routes.get('/', (req,res) =>{
     return res.json({hello: 'World'})
 });
+
+// login
+routes.post('/loginRestaurante', RestauranteController.login );
+routes.post('/loginAdministrador', AdministradorController.login );
+
 // pedidos 
 routes.post('/pedidos', PedidoControler.store );
+routes.post('/pedidosPagarme', PedidoControler.storePagarme );
 routes.get('/pedidos', PedidoControler.index );
+routes.get('/pedidos/andamentoRestaurante', PedidoControler.andamentoRestaurante);
+routes.get('/pedidos/entregueRestaurante', PedidoControler.entregueRestaurante );
+routes.get('/pedidos/pendenteRestaurante', PedidoControler.pendenteRestaurante )
+routes.get('/pedidos/entregueUsuario', PedidoControler.entregueUsuario);
+routes.get('/pedidos/andamentoPendenteUsuario', PedidoControler.andamentoPendenteUsuario );
+routes.get('/pedidos/mes', PedidoControler.mesGrafico );
+routes.get('/pedidos/countEntregues', PedidoControler.countEntregues );
+routes.get('/pedidos/countPendentes', PedidoControler.countPendentes );
+routes.get('/pedidos/countAndamento', PedidoControler.countAndamento );
 routes.get('/pedidos/:id', PedidoControler.findById );
+routes.get('/pedidos/nome', PedidoControler.findByNome );
 routes.put('/pedidos', PedidoControler.update );
 routes.delete('/pedidos', PedidoControler.delete );
 
@@ -33,7 +49,9 @@ routes.delete('/administrador', AdministradorController.delete );
 
 //Cartoes
 routes.post('/cartoes', CartoesController.store );
+routes.post('/cartoesPagarme', CartoesController.storePagarme );
 routes.get('/cartoes', CartoesController.index );
+routes.get('/cartoesNome', CartoesController.cartoesNome );
 routes.get('/cartoes/:id', CartoesController.findById );
 routes.put('/cartoes', CartoesController.update );
 routes.delete('/cartoes', CartoesController.delete );
@@ -55,6 +73,7 @@ routes.delete('/endereco', EnderecoController.delete );
 // Ofertas
 routes.post('/ofertas', OfertasController.store );
 routes.get('/ofertas', OfertasController.index );
+routes.get('/ofertas/count', OfertasController.count );
 routes.get('/ofertas/:id', OfertasController.findById );
 routes.put('/ofertas', OfertasController.update );
 routes.delete('/ofertas', OfertasController.delete );
@@ -70,14 +89,18 @@ routes.delete('/perfil', PerfilController.delete );
 // Promocoes
 routes.post('/promocoes', PromocoesController.store );
 routes.get('/promocoes', PromocoesController.index );
+routes.get('/promocoes/count', PromocoesController.count );
 routes.get('/promocoes/:id', PromocoesController.findById );
+routes.get('/promocoes/nome', PromocoesController.findByNome );
 routes.put('/promocoes', PromocoesController.update );
 routes.delete('/promocoes', PromocoesController.delete );
 
 // Restaurantes
 routes.post('/restaurante', RestauranteController.store );
 routes.get('/restaurante', RestauranteController.index );
+routes.get('/restaurante/count', RestauranteController.count );
 routes.get('/restaurante/:id', RestauranteController.findById );
+routes.get('/restaurante/nome', RestauranteController.findByNome );
 routes.put('/restaurante', RestauranteController.update );
 routes.delete('/restaurante', RestauranteController.delete );
 
