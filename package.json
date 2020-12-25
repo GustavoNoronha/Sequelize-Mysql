@@ -9,6 +9,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
+    "pagarme": "^4.13.0",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5"
